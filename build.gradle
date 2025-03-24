@@ -90,6 +90,17 @@ neoForge {
         }
     }
 
+    unitTest {
+        // Enable JUnit support in the moddev plugin
+        enable()
+        // Configure which mod is being tested.
+        // This allows NeoForge to load the test/ classes and resources as belonging to the mod.
+        testedMod = mods.create(mod_id) // <mod name> must match the name in the mods { } block.
+        // Configure which mods are loaded in the test environment, if the default (all declared mods) is not appropriate.
+        // This must contain testedMod, and can include other mods as well.
+        // loadedMods = [mods.<mod name >, mods.<mod name 2>]
+    }
+
     mods {
         // define mod <-> source bindings
         // these are used to tell the game which sources are for which mod
@@ -113,6 +124,9 @@ configurations {
 }
 
 dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+    testImplementation 'org.mockito:mockito-core:4.6.1'
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
@@ -134,6 +148,10 @@ dependencies {
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
+}
+
+test {
+    useJUnitPlatform()
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
