@@ -1,0 +1,12 @@
+{
+  "item.fullstackeconomy.goldcoin": "Gold Coin",
+  "item.fullstackeconomy.silvercoin": "Silver Coin",
+  "item.fullstackeconomy.coppercoin": "Copper Coin",
+  "item.fullstackeconomy.coinpress_plate": "Press plate",
+
+  "block.fullstackeconomy.companyledger": "Company Ledger",
+  "block.fullstackeconomy.bankledger": "Bank Ledger",
+  "block.fullstackeconomy.mint": "Minting Machine",
+
+  "creativetab.fullstackeconomy.fullstackeconomy_items": "FullStack Economy"
+}

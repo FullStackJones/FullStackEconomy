@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "fullstackeconomy:block/companyledger"
+    },
+    "facing=south": {
+      "model":"fullstackeconomy:block/companyledger",
+      "y" : 180
+    },
+    "facing=west": {
+      "model":"fullstackeconomy:block/companyledger",
+      "y" : 270
+    },
+    "facing=east": {
+      "model":"fullstackeconomy:block/companyledger",
+      "y" : 90
+    }
+  }
+}
