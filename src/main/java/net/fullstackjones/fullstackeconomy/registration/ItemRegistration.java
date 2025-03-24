@@ -15,7 +15,7 @@ public class ItemRegistration {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(FullStackEconomy.MODID);
     public static final DeferredItem<Item> COPPERCOIN_ITEM = ITEMS.register(
             "coppercoin",
-            () -> new CurrencyItem(new Item.Properties(), new CurrencyItemData(
+            () -> new CurrencyItem(new CurrencyItemData(
                     CurrencySize.SMALL.name(),
                     CurrencyShape.CIRCLE.name(),
                     CurrencyAccent.NONE.name(),
@@ -23,7 +23,7 @@ public class ItemRegistration {
                     "Copper")));
     public static final DeferredItem<Item> SILVERCOIN_ITEM = ITEMS.register(
             "silvercoin",
-            () -> new CurrencyItem(new Item.Properties(), new CurrencyItemData(
+            () -> new CurrencyItem(new CurrencyItemData(
                     CurrencySize.SMALL.name(),
                     CurrencyShape.CIRCLE.name(),
                     CurrencyAccent.NONE.name(),
@@ -31,7 +31,7 @@ public class ItemRegistration {
                     "Silver")));
     public static final DeferredItem<Item> GOLDCOIN_ITEM = ITEMS.register(
             "goldcoin",
-            () -> new CurrencyItem(new Item.Properties(), new CurrencyItemData(
+            () -> new CurrencyItem(new CurrencyItemData(
                     CurrencySize.SMALL.name(),
                     CurrencyShape.CIRCLE.name(),
                     CurrencyAccent.NONE.name(),
