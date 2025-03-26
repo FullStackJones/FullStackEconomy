@@ -1,15 +1,23 @@
 package net.fullstackjones.fullstackeconomy.blocks;
 
 import com.mojang.serialization.MapCodec;
+import net.fullstackjones.fullstackeconomy.blockentities.BankLedgerBlockEntity;
+import net.fullstackjones.fullstackeconomy.menu.BankLedgerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -19,6 +27,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -26,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
 
-public class BankLedgerBlock  extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
+public class BankLedgerBlock  extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock, EntityBlock {
     public static final EnumProperty<ChestType> PART = BlockStateProperties.CHEST_TYPE;
 
     public static final VoxelShape SHAPE_TABLETOP = Block.box(0, 13, 0, 16, 16, 16);
@@ -47,6 +56,21 @@ public class BankLedgerBlock  extends HorizontalDirectionalBlock implements Simp
     public BankLedgerBlock() {
         super(BlockBehaviour.Properties.of().strength(2.5F).sound(SoundType.WOOD).noOcclusion());
         this.registerDefaultState(defaultBlockState().setValue(WATERLOGGED, false));
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        if (level.getBlockEntity(pos) instanceof BankLedgerBlockEntity bankLedger) {
+            if (player instanceof ServerPlayer) {
+                ((ServerPlayer) player).openMenu(new SimpleMenuProvider(bankLedger, Component.literal("Bank Ledger")), pos);
+            }
+        }
+        return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new BankLedgerBlockEntity(pos, state);
     }
 
     public BlockState updateShape(BlockState myState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos myPos, BlockPos pFacingPos) {

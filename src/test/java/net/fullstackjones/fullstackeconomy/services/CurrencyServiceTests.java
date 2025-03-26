@@ -10,12 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 public class CurrencyServiceTests {
 
@@ -39,7 +34,6 @@ public class CurrencyServiceTests {
         dollarData = new CurrencyData();
         dollarData.Name = "Dollar";
         dollarData.Symbol = "$";
-
         economySavedData = EconomySavedData.create();
     }
 
@@ -52,18 +46,29 @@ public class CurrencyServiceTests {
     }
 
     @Test
-    void DeleteCurrency_When1EntryInList_ReturnsNewEconomySavedData() {
+    void CreateCurrency_CurrencyAlreadyInList_CurrencyIsAdded() {
         economySavedData.currencyDataList.add(sterlingData);
         currencyService = new CurrencyService(economySavedData);
 
-        EconomySavedData result = currencyService.DeleteCurrency("Sterling");
+        EconomySavedData result = currencyService.CreateCurrency(sterlingData);
+
+        assertEquals(1, result.currencyDataList.size());
+        assertEquals("Sterling", result.currencyDataList.get(0).Name);
+    }
+
+    @Test
+    void DeleteCurrency_WhenEntryInList_ReturnsNewEconomySavedData() {
+        economySavedData.currencyDataList.add(sterlingData);
+        currencyService = new CurrencyService(economySavedData);
+
+        EconomySavedData result = currencyService.DeleteCurrency(sterlingData.id);
 
         assertEquals(0, result.currencyDataList.size());
     }
 
     @Test
-    void DeleteCurrency_When0EntryInList_ReturnsNewEconomySavedData() {
-        EconomySavedData result = currencyService.DeleteCurrency("Sterling");
+    void DeleteCurrency_WhenEntryNotInList_ReturnsNewEconomySavedData() {
+        EconomySavedData result = currencyService.DeleteCurrency(sterlingData.id);
 
         assertEquals(0, result.currencyDataList.size());
     }
@@ -73,9 +78,26 @@ public class CurrencyServiceTests {
         economySavedData.currencyDataList.add(dollarData);
         currencyService = new CurrencyService(economySavedData);
 
-        EconomySavedData result = currencyService.DeleteCurrency("Sterling");
+        EconomySavedData result = currencyService.DeleteCurrency(sterlingData.id);
 
         assertEquals(1, result.currencyDataList.size());
         assertEquals("Dollar", result.currencyDataList.get(0).Name);
+    }
+
+    @Test
+    void ChangeCurrency_ReturnsNewEconomySavedData() {
+        economySavedData.currencyDataList.add(sterlingData);
+        currencyService = new CurrencyService(economySavedData);
+
+        CurrencyData euroData = sterlingData;
+        euroData.Name = "Euro";
+        euroData.Symbol = "€";
+
+        EconomySavedData result = currencyService.ChangeCurrency(euroData);
+
+        assertEquals(1, result.currencyDataList.size());
+        assertEquals(sterlingData.id, result.currencyDataList.get(0).id);
+        assertEquals("Euro", result.currencyDataList.get(0).Name);
+        assertEquals("€", result.currencyDataList.get(0).Symbol);
     }
 }

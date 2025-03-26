@@ -7,6 +7,7 @@ import net.minecraft.world.level.saveddata.SavedData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class EconomySavedData extends SavedData {
     public List<CurrencyData> currencyDataList;

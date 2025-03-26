@@ -7,10 +7,6 @@ import net.minecraft.world.item.Item;
 public class CurrencyItem extends Item {
     private CurrencyItemData _CurrencyData;
 
-    public CurrencyItem(Properties properties) {
-        super(properties);
-    }
-
     public CurrencyItem(CurrencyItemData data) {
         super(new Item.Properties());
         _CurrencyData = data;

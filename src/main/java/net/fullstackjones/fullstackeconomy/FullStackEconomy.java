@@ -1,8 +1,8 @@
 package net.fullstackjones.fullstackeconomy;
 
-import net.fullstackjones.fullstackeconomy.registration.BlockRegistration;
-import net.fullstackjones.fullstackeconomy.registration.CreativeTabRegistration;
-import net.fullstackjones.fullstackeconomy.registration.ItemRegistration;
+import net.fullstackjones.fullstackeconomy.registration.*;
+import net.fullstackjones.fullstackeconomy.screen.BankLedgerScreen;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -37,6 +37,8 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import static net.fullstackjones.fullstackeconomy.registration.MenuRegistration.BANKLEDGER_MENU;
+
 @Mod(FullStackEconomy.MODID)
 public class FullStackEconomy
 {
@@ -53,6 +55,8 @@ public class FullStackEconomy
         ItemRegistration.register(modEventBus);
         BlockRegistration.register(modEventBus);
         CreativeTabRegistration.register(modEventBus);
+        MenuRegistration.register(modEventBus);
+        BlockEntityRegistraion.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
@@ -71,6 +75,11 @@ public class FullStackEconomy
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
+        }
+
+        @SubscribeEvent
+        public static void registerScreens(RegisterMenuScreensEvent event) {
+            event.register(BANKLEDGER_MENU.get(), BankLedgerScreen::new);
         }
     }
 }
