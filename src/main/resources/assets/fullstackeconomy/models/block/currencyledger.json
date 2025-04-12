@@ -2,9 +2,9 @@
   "credit": "Made with Blockbench",
   "texture_size": [64, 64],
   "textures": {
-    "1": "fullstackeconomy:block/bankledger_table",
-    "2": "fullstackeconomy:block/bankledger_vault",
-    "particle": "fullstackeconomy:block/bankledger_vault"
+    "1": "fullstackeconomy:block/currencyledger_table",
+    "2": "fullstackeconomy:block/currencyledger_vault",
+    "particle": "fullstackeconomy:block/currencyledger_vault"
   },
   "elements": [
     {

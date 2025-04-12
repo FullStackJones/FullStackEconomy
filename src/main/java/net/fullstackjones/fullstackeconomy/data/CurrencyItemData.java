@@ -1,5 +1,7 @@
 package net.fullstackjones.fullstackeconomy.data;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.nbt.CompoundTag;
 
 public class CurrencyItemData {
@@ -61,4 +63,12 @@ public class CurrencyItemData {
         String name = tag.getString("Name");
         return new CurrencyItemData(size, shape, accent, value, name);
     }
+
+    public static final Codec<CurrencyItemData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Codec.STRING.fieldOf("size").forGetter(CurrencyItemData::GetSize),
+            Codec.STRING.fieldOf("shape").forGetter(CurrencyItemData::GetShape),
+            Codec.STRING.fieldOf("accent").forGetter(CurrencyItemData::GetAccent),
+            Codec.INT.fieldOf("value").forGetter(CurrencyItemData::GetValue),
+            Codec.STRING.fieldOf("name").forGetter(CurrencyItemData::GetName)
+    ).apply(instance, CurrencyItemData::new));
 }

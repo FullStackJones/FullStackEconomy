@@ -1,7 +1,7 @@
 package net.fullstackjones.fullstackeconomy.registration;
 
 import net.fullstackjones.fullstackeconomy.FullStackEconomy;
-import net.fullstackjones.fullstackeconomy.blocks.BankLedgerBlock;
+import net.fullstackjones.fullstackeconomy.blocks.CurrencyLedgerBlock;
 import net.fullstackjones.fullstackeconomy.blocks.CompanyLedgerBlock;
 import net.fullstackjones.fullstackeconomy.blocks.MintBlock;
 import net.minecraft.world.item.BlockItem;
@@ -20,9 +20,9 @@ public class BlockRegistration {
             "companyledger",
             CompanyLedgerBlock::new);
 
-    public static final DeferredBlock<BankLedgerBlock> BANKLEDGER_BLOCK = registerBlock(
-            "bankledger",
-            BankLedgerBlock::new);
+    public static final DeferredBlock<CurrencyLedgerBlock> CURRENCYLEDGER_BLOCK = registerBlock(
+            "currencyledger",
+            CurrencyLedgerBlock::new);
 
     public static final DeferredBlock<MintBlock> MINT_BLOCK = registerBlock(
             "mint",

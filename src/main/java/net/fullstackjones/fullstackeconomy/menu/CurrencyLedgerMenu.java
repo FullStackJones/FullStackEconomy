@@ -1,19 +1,15 @@
 package net.fullstackjones.fullstackeconomy.menu;
 
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 
 import static net.fullstackjones.fullstackeconomy.registration.MenuRegistration.BANKLEDGER_MENU;
 
-public class BankLedgerMenu extends AbstractContainerMenu {
+public class CurrencyLedgerMenu extends AbstractContainerMenu {
     protected final int playerInventoryColumns = 9;
     protected final int playerInventoryRows = 4;
 
@@ -21,7 +17,7 @@ public class BankLedgerMenu extends AbstractContainerMenu {
     protected final Inventory playerInventory;
     private final Level level;
 
-    public BankLedgerMenu(int containerId, Inventory inventory) {
+    public CurrencyLedgerMenu(int containerId, Inventory inventory) {
         super(BANKLEDGER_MENU.get(), containerId);
         this.playerInventory = inventory;
         this.level = inventory.player.level();

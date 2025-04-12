@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "fullstackeconomy:block/currencyledger"
+    },
+    "facing=south": {
+      "model":"fullstackeconomy:block/currencyledger",
+      "y" : 180
+    },
+    "facing=west": {
+      "model":"fullstackeconomy:block/currencyledger",
+      "y" : 270
+    },
+    "facing=east": {
+      "model":"fullstackeconomy:block/currencyledger",
+      "y" : 90
+    }
+  }
+}

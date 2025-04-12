@@ -3,16 +3,18 @@ package net.fullstackjones.fullstackeconomy.data;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.saveddata.SavedData;
+import net.minecraft.world.level.storage.DimensionDataStorage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class EconomySavedData extends SavedData {
     public List<CurrencyData> currencyDataList;
+    public static final String NAME = "economy_saved_data";
 
-    private EconomySavedData(){
+    public EconomySavedData(){
         currencyDataList = new ArrayList<>();
     }
 
@@ -28,6 +30,14 @@ public class EconomySavedData extends SavedData {
     public void AddCurrency(CurrencyData data) {
         currencyDataList.add(data);
         this.setDirty();
+    }
+
+    public static EconomySavedData getOrCreate(ServerLevel level) {
+        DimensionDataStorage storage = level.getDataStorage();
+        return storage.computeIfAbsent(
+                new Factory<>(EconomySavedData::create, EconomySavedData::load),
+                NAME
+        );
     }
 
     public static EconomySavedData load(CompoundTag tag, HolderLookup.Provider lookupProvider) {

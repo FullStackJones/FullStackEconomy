@@ -1,7 +1,7 @@
 package net.fullstackjones.fullstackeconomy.registration;
 
 import net.fullstackjones.fullstackeconomy.FullStackEconomy;
-import net.fullstackjones.fullstackeconomy.menu.BankLedgerMenu;
+import net.fullstackjones.fullstackeconomy.menu.CurrencyLedgerMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -17,8 +17,8 @@ import java.util.function.Supplier;
 public class MenuRegistration {
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, FullStackEconomy.MODID);
 
-    public static final Supplier<MenuType<BankLedgerMenu>> BANKLEDGER_MENU =
-            MENUS.register("bankledger_menu", () -> new MenuType<>(BankLedgerMenu::new, FeatureFlags.DEFAULT_FLAGS));
+    public static final Supplier<MenuType<CurrencyLedgerMenu>> BANKLEDGER_MENU =
+            MENUS.register("bankledger_menu", () -> new MenuType<>(CurrencyLedgerMenu::new, FeatureFlags.DEFAULT_FLAGS));
 
     private static <T extends AbstractContainerMenu> DeferredHolder<MenuType<?>, MenuType<T>> registerMenuType(String name, IContainerFactory<T> factory) {
         return MENUS.register(name, () -> IMenuTypeExtension.create(factory));

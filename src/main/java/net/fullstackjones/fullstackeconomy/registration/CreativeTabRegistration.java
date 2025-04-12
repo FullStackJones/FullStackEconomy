@@ -21,7 +21,7 @@ public class CreativeTabRegistration {
                     .title(Component.translatable("creativetab.fullstackeconomy.fullstackeconomy_items"))
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(BlockRegistration.COMPANYLEDGER_BLOCK);
-                        output.accept(BlockRegistration.BANKLEDGER_BLOCK);
+                        output.accept(BlockRegistration.CURRENCYLEDGER_BLOCK);
                         output.accept(BlockRegistration.MINT_BLOCK);
                         output.accept(ItemRegistration.COPPERCOIN_ITEM);
                         output.accept(ItemRegistration.SILVERCOIN_ITEM);

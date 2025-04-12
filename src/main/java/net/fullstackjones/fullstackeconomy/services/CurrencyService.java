@@ -2,18 +2,30 @@ package net.fullstackjones.fullstackeconomy.services;
 
 import net.fullstackjones.fullstackeconomy.data.CurrencyData;
 import net.fullstackjones.fullstackeconomy.data.EconomySavedData;
+import net.minecraft.server.level.ServerLevel;
 
 import java.util.UUID;
 
 public class CurrencyService implements ICurrencyService {
+    private static CurrencyService instance;
     private final EconomySavedData _economySavedData;
 
-    public CurrencyService(EconomySavedData economySavedData) {
-        _economySavedData = economySavedData;
+    public CurrencyService(ServerLevel level) {
+        _economySavedData = EconomySavedData.getOrCreate(level);
+        _economySavedData.setDirty();
     }
 
-    public CurrencyService() {
-        _economySavedData = EconomySavedData.create();
+    public static void initialize(ServerLevel level) {
+        if (instance == null) {
+            instance = new CurrencyService(level);
+        }
+    }
+
+    public static CurrencyService getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException("CurrencyService has not been initialized!");
+        }
+        return instance;
     }
 
     @Override
@@ -22,6 +34,7 @@ public class CurrencyService implements ICurrencyService {
             return _economySavedData;
         }
         _economySavedData.AddCurrency(currency);
+        _economySavedData.setDirty();
         return _economySavedData;
     }
 
@@ -32,6 +45,7 @@ public class CurrencyService implements ICurrencyService {
             return _economySavedData;
         }
         _economySavedData.RemoveCurrency(data);
+        _economySavedData.setDirty();
         return _economySavedData;
     }
 
@@ -45,6 +59,7 @@ public class CurrencyService implements ICurrencyService {
         }
         _economySavedData.RemoveCurrency(data);
         _economySavedData.AddCurrency(currency);
+        _economySavedData.setDirty();
         return _economySavedData;
     }
 

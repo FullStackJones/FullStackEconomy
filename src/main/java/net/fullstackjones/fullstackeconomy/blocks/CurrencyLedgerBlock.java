@@ -1,8 +1,7 @@
 package net.fullstackjones.fullstackeconomy.blocks;
 
 import com.mojang.serialization.MapCodec;
-import net.fullstackjones.fullstackeconomy.blockentities.BankLedgerBlockEntity;
-import net.fullstackjones.fullstackeconomy.menu.BankLedgerMenu;
+import net.fullstackjones.fullstackeconomy.blockentities.CurrencyLedgerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -35,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
 
-public class BankLedgerBlock  extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock, EntityBlock {
+public class CurrencyLedgerBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock, EntityBlock {
     public static final EnumProperty<ChestType> PART = BlockStateProperties.CHEST_TYPE;
 
     public static final VoxelShape SHAPE_TABLETOP = Block.box(0, 13, 0, 16, 16, 16);
@@ -53,16 +52,16 @@ public class BankLedgerBlock  extends HorizontalDirectionalBlock implements Simp
     public static final VoxelShape SHAPE_LEGS_EAST = Shapes.or(SHAPE_GROUP_LEG_1, SHAPE_TABLETOP, SHAPE_SUPPORT_1);
 
 
-    public BankLedgerBlock() {
+    public CurrencyLedgerBlock() {
         super(BlockBehaviour.Properties.of().strength(2.5F).sound(SoundType.WOOD).noOcclusion());
         this.registerDefaultState(defaultBlockState().setValue(WATERLOGGED, false));
     }
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (level.getBlockEntity(pos) instanceof BankLedgerBlockEntity bankLedger) {
+        if (level.getBlockEntity(pos) instanceof CurrencyLedgerBlockEntity bankLedger) {
             if (player instanceof ServerPlayer) {
-                ((ServerPlayer) player).openMenu(new SimpleMenuProvider(bankLedger, Component.literal("Bank Ledger")), pos);
+                ((ServerPlayer) player).openMenu(new SimpleMenuProvider(bankLedger, Component.literal("Currency Ledger")), pos);
             }
         }
         return InteractionResult.SUCCESS;
@@ -70,7 +69,7 @@ public class BankLedgerBlock  extends HorizontalDirectionalBlock implements Simp
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new BankLedgerBlockEntity(pos, state);
+        return new CurrencyLedgerBlockEntity(pos, state);
     }
 
     public BlockState updateShape(BlockState myState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos myPos, BlockPos pFacingPos) {

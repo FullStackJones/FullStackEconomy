@@ -5,10 +5,10 @@
   "item.fullstackeconomy.coinpress_plate": "Press plate",
 
   "block.fullstackeconomy.companyledger": "Company Ledger",
-  "block.fullstackeconomy.bankledger": "Bank Ledger",
+  "block.fullstackeconomy.currencyledger": "Currency Ledger",
   "block.fullstackeconomy.mint": "Minting Machine",
 
-  "blockentity.fullstackeconomy.bankledger": "Bank Ledger",
+  "blockentity.fullstackeconomy.currencyledger": "Currency Ledger",
 
   "creativetab.fullstackeconomy.fullstackeconomy_items": "FullStack Economy"
 }
